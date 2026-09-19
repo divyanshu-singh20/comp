@@ -23,7 +23,9 @@ const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000,http:/
   .filter(Boolean);
 const corsOptions = {
   origin: (requestOrigin, callback) => {
-    if (!requestOrigin || allowedOrigins.includes(requestOrigin)) {
+    const isVercelOrigin = requestOrigin && /\.vercel\.app$/.test(requestOrigin);
+
+    if (!requestOrigin || allowedOrigins.includes(requestOrigin) || isVercelOrigin) {
       return callback(null, true);
     }
 
