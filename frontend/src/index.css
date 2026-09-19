@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --color-ink: #111111;
+  --color-panel: #171717;
+  --color-panel-strong: #1d1d1d;
+  --color-line: #2a2a2a;
+  --color-muted: #858585;
+  --color-amber: #f59e0b;
+  --color-amber-soft: #fbbf24;
+}
+
+:root {
+  color: #fff;
+  background: #111;
+  font-family: 'Space Grotesk', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: #111; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+::selection { color: #111; background: #f59e0b; }
+
+.scrollbar-thin::-webkit-scrollbar { width: 5px; height: 5px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 999px; }
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-rise-in { animation: rise-in 500ms ease-out both; }
+
+@keyframes pulse-amber {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.08); }
+  50% { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
+}
+.pulse-amber { animation: pulse-amber 2.4s infinite; }
+
+.page-kicker { font-family: 'DM Mono', monospace; font-size: 10px; line-height: 1; text-transform: uppercase; letter-spacing: 0.22em; color: #f59e0b; }
+.page-title { margin-top: 10px; font-size: 2.25rem; line-height: 1; font-weight: 600; letter-spacing: -0.04em; }
+.page-subtitle { margin-top: 10px; font-size: 0.875rem; line-height: 1.5; color: #858585; }
+.section-kicker { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: #f59e0b; }
+.metric-label { font-family: 'DM Mono', monospace; font-size: 9px; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.12em; color: #666; }
+.label-style { display: block; margin-bottom: 8px; font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: #858585; }
+.label-style b { color: #f59e0b; font-weight: 400; }
+.input-style { height: 42px; width: 100%; border: 1px solid #2a2a2a; background: #121212; padding: 0 12px; font-size: 0.75rem; color: #fff; outline: none; }
+.input-style:focus { border-color: #f59e0b; }
+.input-style::placeholder { color: #666; }
