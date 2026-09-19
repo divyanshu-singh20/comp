@@ -17,12 +17,18 @@ const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 
 const app = express();
 const port = process.env.PORT || 5000;
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5174'
-];
+const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:5174')
+  .split(',')
+  .map((origin) => origin.trim().replace(/\/$/, ''))
+  .filter(Boolean);
 const corsOptions = {
-  origin: allowedOrigins,
+  origin: (requestOrigin, callback) => {
+    if (!requestOrigin || allowedOrigins.includes(requestOrigin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Origin is not allowed by CORS'));
+  },
   credentials: true
 };
 

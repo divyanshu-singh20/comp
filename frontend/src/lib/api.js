@@ -1,21 +1,19 @@
-// Centralised API base URL for the Leadyfy OS backend.
-// Falls back to the local Express server so the app works with zero setup,
-// but can be pointed at another environment via VITE_API_URL.
-export const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+const configuredApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+export const API_BASE = configuredApiUrl.replace(/\/$/, '');
 
-/**
- * Minimal JSON POST helper.
- * The Leadyfy OS API always responds with `{ message }` on failure, so we
- * normalise both network errors and backend errors into a single Error.
- */
-export async function postJson(path, payload) {
+const resolveUrl = (path) => `${API_BASE}/${String(path).replace(/^\//, '')}`;
+
+export async function apiRequest(path, options = {}) {
   let response;
 
   try {
-    response = await fetch(`${API_BASE}${path}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+    response = await fetch(resolveUrl(path), {
+      credentials: 'include',
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+      }
     });
   } catch {
     throw new Error('Unable to reach the Leadyfy OS API. Please check your connection and try again.');
@@ -33,4 +31,11 @@ export async function postJson(path, payload) {
   }
 
   return data ?? {};
+}
+
+export function postJson(path, payload) {
+  return apiRequest(path, {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
 }
