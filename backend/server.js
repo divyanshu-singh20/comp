@@ -17,7 +17,7 @@ const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 
 const app = express();
 const port = process.env.PORT || 5000;
-const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:5174')
+const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:5174,https://comp-lilac.vercel.app')
   .split(',')
   .map((origin) => origin.trim().replace(/\/$/, ''))
   .filter(Boolean);
